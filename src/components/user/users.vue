@@ -16,7 +16,7 @@
   <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
   </el-col>
     </el-row>
-    <el-table :data="userList" border stripe>
+    <el-table :data="userList" border stripe max-height = "480">
         <el-table-column type="index"></el-table-column>
         <el-table-column label="姓名" prop="username"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>

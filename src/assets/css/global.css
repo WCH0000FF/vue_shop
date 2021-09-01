@@ -8,6 +8,7 @@ html, body, #app {
   
   .el-card {
     box-shadow: 0 2px 2px rgba(0, 0, 0, .1) !important;
+    margin-top: 15px;
   }
   
   .el-table{

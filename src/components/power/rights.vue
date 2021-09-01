@@ -6,7 +6,7 @@
   <el-breadcrumb-item>权限列表</el-breadcrumb-item>
 </el-breadcrumb>
 <el-card>
-    <el-table :data="rightsList" border stripe>
+    <el-table :data="rightsList" border stripe max-height = "480">
 <el-table-column type="index"></el-table-column>
 <el-table-column label="权限名称" prop="authName"></el-table-column>
 <el-table-column label="路径" prop="path"></el-table-column>

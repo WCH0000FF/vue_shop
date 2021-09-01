@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint":  "vue-cli-service lint",
+    "push":  "scp -r dist/* root@120.24.191.87:/www/wwwroot/120.24.191.87"
   },
   "dependencies": {
     "axios": "^0.21.1",
