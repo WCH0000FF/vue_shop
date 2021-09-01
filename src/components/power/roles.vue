@@ -11,7 +11,7 @@
             <el-button type="primary">添加角色</el-button>
         </el-col>
     </el-row>
-    <el-table :data="rolesList" border stripe>
+    <el-table :data="rolesList" border stripe max-height = "480">
 <el-table-column type="expand">
     <template slot-scope="scope">
     <el-row :class="['dbbottom', i1 === 0 ? 'dbtop':'','vcenter']" v-for="(item1, i1) in scope.row.children" :key="item1.id">

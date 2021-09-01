@@ -14,7 +14,7 @@
         <el-menu
       background-color="#47525d"
       text-color="#fff"
-      active-text-color="#ffd04b"
+      active-text-color="#409EFF"
       unique-opened
       :collapse='isCollapse'
       :collapse-transition='false'
