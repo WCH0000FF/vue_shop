@@ -32,7 +32,7 @@
             :data="manyTableData"
             border
             stripe
-            max-height = "480"
+            max-height = "330"
            >
             <el-table-column  type="expand"></el-table-column>
             <el-table-column  type="index"></el-table-column>
@@ -41,7 +41,7 @@
                 label="参数名称"
               >
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" width="300px">
               <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" size="mini" @click="editParams(scope.row)">编辑</el-button>
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeParams(scope.row.attr_id)">删除</el-button>
@@ -55,7 +55,7 @@
             :data="onlyTableData"
             border
             stripe
-            max-height = "480"
+            max-height = "330"
            >
             <el-table-column  type="expand"></el-table-column>
             <el-table-column  type="index"></el-table-column>
@@ -64,7 +64,7 @@
                 label="属性名称"
               >
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" width="300px">
               <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" size="mini" @click="editParams(scope.row)">编辑</el-button>
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeParams(scope.row.attr_id)">删除</el-button>
