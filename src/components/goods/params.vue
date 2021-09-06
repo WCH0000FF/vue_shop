@@ -34,7 +34,22 @@
             stripe
             max-height = "330"
            >
-            <el-table-column  type="expand"></el-table-column>
+            <el-table-column  type="expand" >
+              <template slot-scope="scope">
+                <el-tag v-for="(item,index) in scope.row.attr_vals" :key="index" closable @close="handleClose(index,scope.row)">{{item}}</el-tag>
+                 <el-input
+  class="input-new-tag"
+  v-if="scope.row.inputVisible"
+  v-model="scope.row.inputValue"
+  ref="saveTagInput"
+  size="small"
+  @keyup.enter.native="handleInputConfirm(scope.row)"
+  @blur="handleInputConfirm(scope.row)"
+>
+</el-input>
+<el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
+              </template>
+            </el-table-column>
             <el-table-column  type="index"></el-table-column>
             <el-table-column
                 prop="attr_name"
@@ -57,7 +72,22 @@
             stripe
             max-height = "330"
            >
-            <el-table-column  type="expand"></el-table-column>
+            <el-table-column  type="expand">
+              <template slot-scope="scope">
+                <el-tag v-for="(item,index) in scope.row.attr_vals" :key="index" closable @close="handleClose(index,scope.row)">{{item}}</el-tag>
+                 <el-input
+  class="input-new-tag"
+  v-if="scope.row.inputVisible"
+  v-model="scope.row.inputValue"
+  ref="saveTagInput"
+  size="small"
+  @keyup.enter.native="handleInputConfirm(scope.row)"
+  @blur="handleInputConfirm(scope.row)"
+>
+</el-input>
+<el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
+              </template>
+            </el-table-column>
             <el-table-column  type="index"></el-table-column>
             <el-table-column
                 prop="attr_name"
@@ -186,10 +216,17 @@ export default {
     async getParamsData () {
       if (this.selectedCateKeys.length !== 3) {
         this.selectedCateKeys = []
+        this.manyTableData = []
+        this.onlyTableData = []
         return this.$message.warning('请选择第三级分类')
       }
       const { data: res } = await this.$http.get(`categories/${this.cateId}/attributes`, {
         params: { sel: this.activeName }
+      })
+      res.data.forEach(item => {
+        item.attr_vals = item.attr_vals ? item.attr_vals.split(',') : []
+        item.inputVisible = false
+        item.inputValue = ''
       })
       if (res.meta.status !== 200) return this.$$message.error('获取参数列表失败！！')
       if (this.activeName === 'many') {
@@ -253,6 +290,37 @@ export default {
       if (res.meta.status !== 200) return this.$message.error('删除参数失败！！')
       this.$message.success('删除参数成功！！')
       this.getParamsData()
+    },
+    handleInputConfirm (row) {
+      if (row.inputValue.trim().length === 0) {
+        row.inputVisible = false
+        row.inputValue = ''
+        return
+      }
+      row.attr_vals.push(row.inputValue.trim())
+      this.saveAttrVals(row)
+    },
+    showInput (row) {
+      row.inputVisible = true
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+    async saveAttrVals (row) {
+      const { data: res } = await this.$http.put(`categories/${this.cateId}/attributes/${row.attr_id}`,
+        {
+          attr_name: row.attr_name,
+          attr_sel: row.attr_sel,
+          attr_vals: row.attr_vals.join(',')
+        })
+      if (res.meta.status !== 200) return this.$message.error('修改参数项失败！！')
+      this.$message.success('修改参数项成功！！')
+      row.inputVisible = false
+      row.inputValue = ''
+    },
+    handleClose (i, row) {
+      row.attr_vals.splice(i, 1)
+      this.saveAttrVals(row)
     }
   }
 }
@@ -260,5 +328,11 @@ export default {
 <style lang="less" scoped>
 .cat_opt{
     margin: 15px 0;
+}
+.el-tag{
+  margin: 10px;
+}
+.input-new-tag{
+  width: 120px
 }
 </style>
