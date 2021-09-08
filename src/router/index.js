@@ -8,6 +8,8 @@ import rights from '../components/power/rights.vue'
 import roles from '../components/power/roles.vue'
 import gate from '../components/goods/gate.vue'
 import params from '../components/goods/params.vue'
+import list from '../components/goods/list.vue'
+import addGoods from '../components/goods/add.vue'
 Vue.use(VueRouter)
 const routes = [
   { path: '/', redirect: '/login' },
@@ -22,7 +24,9 @@ const routes = [
       { path: '/rights', component: rights },
       { path: '/roles', component: roles },
       { path: '/categories', component: gate },
-      { path: '/params', component: params }
+      { path: '/params', component: params },
+      { path: '/goods', component: list },
+      { path: '/goods/add', component: addGoods }
     ]
   }
 ]
